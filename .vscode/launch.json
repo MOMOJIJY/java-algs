@@ -1,0 +1,275 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch BST",
+            "request": "launch",
+            "mainClass": "chapter3.section2.BST",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch FrequencyCounter",
+            "request": "launch",
+            "mainClass": "chapter3.section1.FrequencyCounter",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "10",
+                "<",
+                "./data/leipzig300K.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch Multiway",
+            "request": "launch",
+            "mainClass": "Multiway",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "./data/m1.txt",
+                "./data/m2.txt",
+                "./data/m3.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch MaxPQWithoutExchange",
+            "request": "launch",
+            "mainClass": "MaxPQWithoutExchange",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "16",
+                "<",
+                "./data/tinyBatch.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch MergeNode",
+            "request": "launch",
+            "mainClass": "MergeNode",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Counter",
+            "request": "launch",
+            "mainClass": "Counter",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Date",
+            "request": "launch",
+            "mainClass": "Date",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Deque",
+            "request": "launch",
+            "mainClass": "Deque",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch DoublingRatio",
+            "request": "launch",
+            "mainClass": "DoublingRatio",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch DoublingTest",
+            "request": "launch",
+            "mainClass": "DoublingTest",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch FixedCapacityStack",
+            "request": "launch",
+            "mainClass": "FixedCapacityStack",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch FixedCapacityStackOfInts",
+            "request": "launch",
+            "mainClass": "FixedCapacityStackOfInts",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Insertion",
+            "request": "launch",
+            "mainClass": "Insertion",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch InsertionInteger",
+            "request": "launch",
+            "mainClass": "InsertionInteger",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch InsertionV2",
+            "request": "launch",
+            "mainClass": "InsertionV2",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch InsertionV3",
+            "request": "launch",
+            "mainClass": "InsertionV3",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Merge",
+            "request": "launch",
+            "mainClass": "Merge",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch MergeUB",
+            "request": "launch",
+            "mainClass": "MergeUB",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "<",
+                "./data/1000words.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch Quick",
+            "request": "launch",
+            "mainClass": "Quick",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "<",
+                "./data/tinyBatch.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch MinPQStackV1",
+            "request": "launch",
+            "mainClass": "MinPQStackV1",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "5",
+                "<",
+                "./data/tinyBatch.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch MaxPQ",
+            "request": "launch",
+            "mainClass": "MaxPQ",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "16",
+                "<",
+                "./data/tinyBatch.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch MergeUB",
+            "request": "launch",
+            "mainClass": "MergeBU",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "<",
+                "./data/1000words.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Launch Practice",
+            "request": "launch",
+            "mainClass": "Practice",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Practice$BitonicMax",
+            "request": "launch",
+            "mainClass": "Practice$BitonicMax",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Queue",
+            "request": "launch",
+            "mainClass": "Queue",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch RandomBag",
+            "request": "launch",
+            "mainClass": "RandomBag",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch ResizingArrayStack",
+            "request": "launch",
+            "mainClass": "ResizingArrayStack",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Reverse",
+            "request": "launch",
+            "mainClass": "Reverse",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch Selection",
+            "request": "launch",
+            "mainClass": "Selection",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch SortCompare",
+            "request": "launch",
+            "mainClass": "SortCompare",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch VisualAccumulator",
+            "request": "launch",
+            "mainClass": "VisualAccumulator",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch chapter2Test",
+            "request": "launch",
+            "mainClass": "chapter2Test",
+            "projectName": "java-algs_1f803c83"
+        }
+    ]
+}
