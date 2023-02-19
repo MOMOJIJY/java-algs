@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch AVL",
+            "request": "launch",
+            "mainClass": "chapter3.section3.AVL",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Launch RedBlackBST",
+            "request": "launch",
+            "mainClass": "chapter3.section3.RedBlackBST",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
             "name": "Launch BST",
             "request": "launch",
             "mainClass": "chapter3.section2.BST",
