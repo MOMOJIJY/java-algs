@@ -1,6 +1,8 @@
 package chapter3.section1;
 
 import chapter3.section2.BST;
+import chapter3.section3.RedBlackBST;
+import chapter3.section4.SeparateChainHashST;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.Stopwatch;
@@ -25,7 +27,9 @@ public class FrequencyCounter {
         // BinarySearchST<String, Integer> st = new BinarySearchST<String, Integer>(2);
         // SequentialSearchST<String, Integer> st = new SequentialSearchST<String, Integer>();
         // BinarySearchSTOfItem<String, Integer> st = new BinarySearchSTOfItem<String, Integer>(2);
-        BST<String, Integer> st = new BST<String, Integer>();
+        // BST<String, Integer> st = new BST<String, Integer>();
+        // RedBlackBST<String, Integer> st = new RedBlackBST<String, Integer>();
+        SeparateChainHashST<String, Integer> st = new SeparateChainHashST<String, Integer>();
 
         Stopwatch timer = new Stopwatch();
         // compute frequency counts

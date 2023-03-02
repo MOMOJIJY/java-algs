@@ -15,6 +15,10 @@ public class SequentialSearchST<Key, Value> {
         }
     }
 
+    public boolean isEmpty() {
+        return first == null;
+    }
+
     public Value get(Key key) {
         for (Node x = first; x != null; x = x.next) {
             if (x.key.equals(key)) return x.val;
@@ -37,6 +41,20 @@ public class SequentialSearchST<Key, Value> {
             if (x.key.equals(key)) return true;
         }
         return false;
+    }
+
+    public void delete(Key key) {
+        if (first != null && first.key.equals(key)) {
+            first = null;
+            return;
+        }
+        Node x = new Node(null, null, first);
+        while (x.next != null) {
+            if (x.next.key.equals(key)) {
+                x.next = x.next.next;
+                return;
+            }
+        }
     }
 
     public Iterable<Key> keys() {

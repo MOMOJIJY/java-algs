@@ -1,5 +1,7 @@
 package chapter3.section3;
 
+import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 
@@ -109,17 +111,136 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         }
 
         int cmp = key.compareTo(x.key);
-        if (cmp < 0) x.left = put(x.left, key, val);
-        else if (cmp > 0) x.right = put(x.right, key, val);
-        else x.val = val;
+        if (cmp < 0)
+            x.left = put(x.left, key, val);
+        else if (cmp > 0)
+            x.right = put(x.right, key, val);
+        else
+            x.val = val;
 
         // 顺序不能乱
-        if (isRed(x.right) && !isRed(x.left)) x = rotateLeft(x);
-        if (isRed(x.left) && isRed(x.left.left)) x = rotateRight(x);
-        if (isRed(x.right) && isRed(x.left)) flipColors(x);
+        if (isRed(x.right) && !isRed(x.left))
+            x = rotateLeft(x);
+        if (isRed(x.left) && isRed(x.left.left))
+            x = rotateRight(x);
+        if (isRed(x.right) && isRed(x.left))
+            flipColors(x);
 
         x.N = size(x.left) + size(x.right) + 1;
         return x;
+    }
+
+    public boolean isEmpty() {
+        return size(root) == 0;
+    }
+
+    private void flipColors2(Node h) {
+        h.color = !h.color;
+        h.left.color = !h.left.color;
+        h.right.color = !h.right.color;
+    }
+
+    private Node moveRedLeft(Node h) {
+        flipColors2(h);
+        if (h.right != null && isRed(h.right.left)) {
+            h.right = rotateRight(h.right);
+            h = rotateLeft(h);
+        }
+        return h;
+    }
+
+    public void deleteMin() {
+        if (isEmpty()) {
+            return;
+        }
+
+        if (!isRed(root.left) && !isRed(root.right)) {
+            root.color = RED;
+        }
+
+        root = deleteMin(root);
+
+        if (!isEmpty()) {
+            root.color = BLACK;
+        }
+    }
+
+    private Node deleteMin(Node node) {
+        if (node.left == null) {
+            return null;
+        }
+
+        if (!isRed(node.left) && !isRed(node.left.left)) {
+            node = moveRedLeft(node);
+        }
+
+        node.left = deleteMin(node.left);
+        return balance(node);
+    }
+
+    public Node balance(Node x) {
+        if (x == null) {
+            return null;
+        }
+        // 顺序不能乱
+        if (isRed(x.right)) {
+            x = rotateLeft(x);
+        }
+        if (isRed(x.right) && !isRed(x.left))
+            x = rotateLeft(x);
+        if (isRed(x.left) && isRed(x.left.left))
+            x = rotateRight(x);
+        if (isRed(x.right) && isRed(x.left))
+            flipColors(x);
+
+        x.N = size(x.left) + size(x.right) + 1;
+        return x;
+    }
+
+    public Key min() {
+        if (root == null) {
+            return null;
+        }
+        Node cur = root;
+        while (cur.left != null) {
+            cur = cur.left;
+        }
+        return cur.key;
+    }
+
+    public Key max() {
+        if (root == null) {
+            return null;
+        }
+        Node cur = root;
+        while (cur.right != null) {
+            cur = cur.right;
+        }
+        return cur.key;
+    }
+
+    public Iterable<Key> keys() {
+        return keys(min(), max());
+    }
+
+    public Iterable<Key> keys(Key lo, Key hi) {
+        Queue<Key> queue = new Queue<>();
+        keys(root, queue, lo, hi);
+        return queue;
+    }
+
+    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
+        if (x == null) {
+            return;
+        }
+        int cmpLo = lo.compareTo(x.key);
+        int cmpHi = hi.compareTo(x.key);
+        if (cmpLo < 0)
+            keys(x.left, queue, lo, hi);
+        if (cmpLo <= 0 && cmpHi >= 0)
+            queue.enqueue(x.key);
+        if (cmpHi > 0)
+            keys(x.right, queue, lo, hi);
     }
 
     public void draw() {
@@ -189,7 +310,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         drawNodes(node.left);
 
         StdDraw.setPenColor(StdDraw.WHITE);
-        //Clear the node circle area
+        // Clear the node circle area
         StdDraw.filledCircle(node.xCoordinate, node.yCoordinate, nodeRadius);
 
         StdDraw.setPenColor(StdDraw.BLACK);
@@ -199,16 +320,133 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         drawNodes(node.right);
     }
 
+    public boolean is23() {
+        return is23(root);
+    }
+
+    private boolean is23(Node x) {
+        if (x == null) {
+            return true;
+        }
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(x);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            if (cur.left != null) {
+                if (isRed(cur) && isRed(cur.left))
+                    return false;
+                stack.push(cur.left);
+            }
+            if (cur.right != null) {
+                if (isRed(cur.right))
+                    return false;
+                stack.push(cur.right);
+            }
+        }
+        return true;
+    }
+
+    public boolean isBalance() {
+        int blackPath = 0;
+        Node cur = root;
+        while (cur != null) {
+            cur = cur.left;
+            if (!isRed(cur))
+                blackPath += 1;
+        }
+        return isBalance(root, blackPath);
+    }
+
+    private boolean isBalance(Node x, int blackPath) {
+        if (x == null) {
+            return blackPath == 0;
+        }
+
+        if (!isRed(x)) {
+            blackPath -= 1;
+        }
+        return isBalance(x.left, blackPath) && isBalance(x.right, blackPath);
+    }
+
+    public boolean isBST() {
+        return isBST(root, null, null);
+    }
+
+    private boolean isBST(Node node, Comparable low, Comparable high) {
+        if (node == null) {
+            return true;
+        }
+
+        if (low != null && low.compareTo(node.key) >= 0) {
+            return false;
+        }
+        if (high != null && high.compareTo(node.key) <= 0) {
+            return false;
+        }
+
+        return isBST(node.left, low, node.key) && isBST(node.right, node.key, high);
+    }
+
+    public boolean isRedBlackBST() {
+        return isBST() && is23() && isBalance();
+    }
 
     public static void main(String[] args) {
-        RedBlackBST<String, Integer> st = new RedBlackBST<>();
-        st.put("e", 1);
-        st.put("a", 2);
-        st.put("l", 3);
-        st.put("h", 3);
-        st.put("s", 3);
-        st.put("e", 3);
-        StdOut.println(st.get("a"));
-        st.draw();
+        // draw test
+        // RedBlackBST<String, Integer> st = new RedBlackBST<>();
+        // st.put("e", 1);
+        // st.put("a", 2);
+        // st.put("l", 3);
+        // st.put("h", 3);
+        // st.put("s", 3);
+        // st.put("e", 3);
+        // StdOut.println(st.get("a"));
+        // st.draw();
+
+        // certification
+        // RedBlackBST<Integer, String> st = new RedBlackBST<>();
+        // st.root = new RedBlackBST().new Node(10, "Value 10", 7, false);
+        // st.root.left = new RedBlackBST().new Node(5, "Value 5", 4, true);
+        // st.root.left.left = new RedBlackBST().new Node(2, "Value 2", 1, false);
+        // st.root.left.right = new RedBlackBST().new Node(9, "Value 9", 2, false);
+        // st.root.left.right.left = new RedBlackBST().new Node(7, "Value 7", 1, true);
+
+        // st.root.right = new RedBlackBST().new Node(14, "Value 14", 2, false);
+        // st.root.right.left = new RedBlackBST().new Node(11, "Value 11", 1, true);
+
+        // StdOut.println("Test 1");
+        // StdOut.println(st.is23() + " Expected: true");
+        // StdOut.println(st.isBalance() + " Expected: true");
+
+        // test deleteMin()
+        // RedBlackBST<Integer, String> st = new RedBlackBST<>();
+        // st.put(7, "a");
+        // st.put(5, "a");
+        // st.put(11, "a");
+        // st.put(4, "a");
+        // st.put(6, "a");
+        // st.put(9, "a");
+        // st.put(12, "a");
+        // st.put(8, "a");
+        // st.put(10, "a");
+        // StdOut.println(st.isRedBlackBST());
+        // st.deleteMin();
+        // StdOut.println(st.isRedBlackBST());
+        // st.draw();
+
+        RedBlackBST<Integer, String> st = new RedBlackBST<>();
+        st.put(7, "a");
+        st.put(5, "a");
+        st.put(11, "a");
+        st.put(4, "a");
+        st.put(6, "a");
+        st.put(9, "a");
+        st.put(12, "a");
+        st.put(8, "a");
+        st.put(10, "a");
+        for (int k : st.keys()) {
+            StdOut.printf("key=%s, value=%s\n", k, st.get(k));
+        }
     }
 }

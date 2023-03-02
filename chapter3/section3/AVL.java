@@ -108,12 +108,16 @@ public class AVL<Key extends Comparable<Key>, Value> {
         x.size = 1 + size(x.left) + size(x.right);
 
         if (balanceFactor(x) > 1) {
+            // 左子树比右子树高大于1
             if (balanceFactor(x.left) < 0) {
+                // 避免旋转后右子树太高，可以画图思考一下
                 x.left = rotateLeft(x.left);
             }
             x = rotateRight(x);
         } else if (balanceFactor(x) < -1) {
+            // 右子树比左子树高大于1
             if (balanceFactor(x.right) < 0) {
+                // 避免旋转后左子树太高，可以画图思考一下
                 x.right = rotateRight(x.right);
             }
             x = rotateLeft(x);

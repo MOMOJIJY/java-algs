@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SeparateChainHashST",
+            "request": "launch",
+            "mainClass": "chapter3.section4.SeparateChainHashST",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
             "name": "Launch AVL",
             "request": "launch",
             "mainClass": "chapter3.section3.AVL",
@@ -34,7 +41,7 @@
             "args": [
                 "10",
                 "<",
-                "./data/leipzig300K.txt"
+                "./data/leipzig1M.txt"
             ]
         },
         {

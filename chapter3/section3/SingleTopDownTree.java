@@ -92,29 +92,124 @@ public class SingleTopDownTree<Key extends Comparable, Value> {
         return false;
     }
 
-    public void put(Key key, Value val) {
-        root = put(root, key, val);
+    public void put(Key key, Value value) {
+        if (key == null) {
+            return;
+        }
+
+        if (value == null) {
+            delete(key);
+            return;
+        }
+
+        boolean isANewNode = !contains(key);
+
+        Node godparentNode = null;
+        Node grandparentNode = null; //Used to update references from grandparentNode after balancing its children
+                                        //Only used to update bottom node on a rotate right operation
+        Node parentNode = null; //Used to update references from parent after balancing its children
+
+        Node currentNode = root;
+
+        if (root == null) {
+            root = new Node(key, value, 1, RED);
+        } else {
+
+            while (currentNode != null) {
+                if (isANewNode) {
+                    currentNode.size = currentNode.size + 1;
+                }
+
+                //Flip colors on the way down
+                if (isRed(currentNode.left) && isRed(currentNode.right)) {
+                    flipColors(currentNode);
+                }
+
+                //Check if parent needs to be balanced after color flip
+                if (grandparentNode != null && isRed(grandparentNode.left) && isRed(grandparentNode.left.left)) {
+                    grandparentNode = rotateRight(grandparentNode);
+                    updateParentReference(godparentNode, grandparentNode);
+                }
+
+                //Balance on the way down
+                if (isRed(currentNode.right) && !isRed(currentNode.left)) {
+                    currentNode = rotateLeft(currentNode);
+                    updateParentReference(parentNode, currentNode);
+                }
+
+                if (isRed(currentNode.left) && isRed(currentNode.left.left)) {
+                    currentNode = rotateRight(currentNode);
+                    updateParentReference(parentNode, currentNode);
+                }
+
+                int compare = key.compareTo(currentNode.key);
+
+                if (compare < 0) {
+
+                    if (currentNode.left == null) {
+                        currentNode.left = new Node(key, value, 1, RED);
+                        break;
+                    }
+
+                    godparentNode = grandparentNode;
+                    grandparentNode = parentNode;
+                    parentNode = currentNode;
+
+                    currentNode = currentNode.left;
+                } else if (compare > 0) {
+
+                    if (currentNode.right == null) {
+                        currentNode.right = new Node(key, value, 1, RED);
+                        break;
+                    }
+
+                    godparentNode = grandparentNode;
+                    grandparentNode = parentNode;
+                    parentNode = currentNode;
+
+                    currentNode = currentNode.right;
+                } else {
+                    currentNode.value = value;
+                    break;
+                }
+            }
+        }
+
+        //Extra color flipping and balancing on the last node
+        //currentNode is the new node's parent
+        //parentNode is the new node's grandparent
+        if (currentNode != null) {
+            if (isRed(currentNode.left) && isRed(currentNode.right)) {
+                flipColors(currentNode);
+            }
+
+            if (isRed(currentNode.right) && !isRed(currentNode.left)) {
+                currentNode = rotateLeft(currentNode);
+                updateParentReference(parentNode, currentNode);
+            }
+
+            if (parentNode != null && isRed(parentNode.left) && isRed(parentNode.left.left)) {
+                parentNode = rotateRight(parentNode);
+                updateParentReference(grandparentNode, parentNode);
+            }
+        }
+
         root.color = BLACK;
     }
 
-    private Node put(Node x, Key key, Value val) {
-        if (x == null) {
-            return new Node(key, val, 1, RED);
+    private void updateParentReference(Node parent, Node child) {
+        if (parent == null) {
+            root = child;
+        } else {
+            boolean isCurrentNodeLeftChild = child.key.compareTo(parent.key) < 0;
+
+            if (isCurrentNodeLeftChild) {
+                parent.left = child;
+            } else {
+                parent.right = child;
+            }
         }
-
-        if (isRed(x.right) && isRed(x.left)) flipColors(x);
-
-        int cmp = key.compareTo(x.key);
-        if (cmp < 0) x.left = put(x.left, key, val);
-        else if (cmp > 0) x.right = put(x.right, key, val);
-        else x.val = val;
-
-        // 顺序不能乱
-        if (isRed(x.right) && !isRed(x.left)) x = rotateLeft(x);
-        if (isRed(x.left) && isRed(x.left.left)) x = rotateRight(x);
-
-        x.N = size(x.left) + size(x.right) + 1;
-        return x;
     }
+
 }
 
