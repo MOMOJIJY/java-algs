@@ -6,6 +6,45 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestSearch",
+            "request": "launch",
+            "mainClass": "chapter4.section1.TestSearch",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "./data/tinyG.txt",
+                "9"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Graph",
+            "request": "launch",
+            "mainClass": "chapter4.section1.Graph",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "./data/tinyG.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "MultiValueBST",
+            "request": "launch",
+            "mainClass": "chapter3.section5.MultiValueBST",
+            "projectName": "java-algs_1f803c83"
+        },
+        {
+            "type": "java",
+            "name": "Dedup",
+            "request": "launch",
+            "mainClass": "chapter3.section5.Dedup",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "<",
+                "./data/tinyTale.txt"
+            ]
+        },
+        {
+            "type": "java",
             "name": "Launch SeparateChainHashST",
             "request": "launch",
             "mainClass": "chapter3.section4.SeparateChainHashST",

@@ -149,6 +149,19 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         return h;
     }
 
+    protected Node moveRedRight(Node node) {
+        // Assuming that node is red and both node.right and node.right.left are black,
+        // make node.right or one of its children red
+        flipColors(node);
+
+        if (node.left != null && isRed(node.left.left)) {
+            node = rotateRight(node);
+            flipColors(node);
+        }
+
+        return node;
+    }
+
     public void deleteMin() {
         if (isEmpty()) {
             return;
@@ -178,6 +191,63 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         return balance(node);
     }
 
+    public void delete(Key key) {
+        if (key == null) {
+            throw new IllegalArgumentException("Key cannot be null");
+        }
+
+        if (isEmpty() || !contains(key)) {
+            return;
+        }
+
+        if (!isRed(root.left) && !isRed(root.right)) {
+            root.color = RED;
+        }
+
+        root = delete(root, key);
+
+        if (!isEmpty()) {
+            root.color = BLACK;
+        }
+    }
+
+    private Node delete(Node node, Key key) {
+        if (node == null) {
+            return null;
+        }
+
+        if (key.compareTo(node.key) < 0) {
+            if (!isRed(node.left) && node.left != null && !isRed(node.left.left)) {
+                node = moveRedLeft(node);
+            }
+
+            node.left = delete(node.left, key);
+        } else {
+            if (isRed(node.left)) {
+                node = rotateRight(node);
+            }
+
+            if (key.compareTo(node.key) == 0 && node.right == null) {
+                return null;
+            }
+
+            if (!isRed(node.right) && node.right != null && !isRed(node.right.left)) {
+                node = moveRedRight(node);
+            }
+
+            if (key.compareTo(node.key) == 0) {
+                Node aux = min(node.right);
+                node.key = aux.key;
+                node.val = aux.val;
+                node.right = deleteMin(node.right);
+            } else {
+                node.right = delete(node.right, key);
+            }
+        }
+
+        return balance(node);
+    }
+
     public Node balance(Node x) {
         if (x == null) {
             return null;
@@ -201,22 +271,32 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         if (root == null) {
             return null;
         }
-        Node cur = root;
-        while (cur.left != null) {
-            cur = cur.left;
+
+        return min(root).key;
+    }
+
+    protected Node min(Node node) {
+        if (node.left == null) {
+            return node;
         }
-        return cur.key;
+
+        return min(node.left);
     }
 
     public Key max() {
         if (root == null) {
             return null;
         }
-        Node cur = root;
-        while (cur.right != null) {
-            cur = cur.right;
+
+        return max(root).key;
+    }
+
+    private Node max(Node node) {
+        if (node.right == null) {
+            return node;
         }
-        return cur.key;
+
+        return max(node.right);
     }
 
     public Iterable<Key> keys() {

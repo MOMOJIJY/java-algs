@@ -62,6 +62,14 @@ public class SeparateChainHashST<Key, Value> {
         return st[hash(key)].contains(key);
     }
 
+    public boolean isEmpty() {
+        return N == 0;
+    }
+
+    public int size() {
+        return N;
+    }
+
     public Iterable<Key> keys() {
         Queue<Key> queue = new Queue<>();
         for (int i = 0; i < M; i++) {
