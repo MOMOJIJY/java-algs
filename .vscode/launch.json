@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SymbolGraph",
+            "request": "launch",
+            "mainClass": "chapter4.section1.SymbolGraph",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "./data/movies.txt",
+                "/"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "TwoColor",
+            "request": "launch",
+            "mainClass": "chapter4.section1.TwoColor",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "./data/tinyCG.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "Cycle",
+            "request": "launch",
+            "mainClass": "chapter4.section1.Cycle",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "./data/tinyCG.txt"
+            ]
+        },
+        {
+            "type": "java",
+            "name": "TestPaths",
+            "request": "launch",
+            "mainClass": "chapter4.section1.TestPaths",
+            "projectName": "java-algs_1f803c83",
+            "args": [
+                "./data/tinyCG.txt",
+                "0"
+            ]
+        },
+        {
+            "type": "java",
             "name": "TestSearch",
             "request": "launch",
             "mainClass": "chapter4.section1.TestSearch",
